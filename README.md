@@ -1,3 +1,3 @@
 # OS
-Tried implementing some of os concepts in c++ \n
+Tried implementing some of os concepts in c++\
 Taken from BOOK : Operating Systems by Carles Crowley
