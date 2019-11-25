@@ -1,0 +1,33 @@
+#include<cstdio>
+#include<cstdlib>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+#include<fcntl.h>
+using namespace std;
+
+// This procedure creates two processes and wait for completion
+
+void CreateProcess2(){
+	static char *argb[3]={"compiler","./a.out",(char *)0};
+	int pid1 = CreateProcess("compiler",3,argb);
+	if(pid1<0){
+		printf("Could not create Process\n");
+		return;
+	}
+	char *argv[3]={"editor","twoProc.txt",(char *)0};
+	int pid2 = CreateProcess("editor",3,argv);
+	if(pid2<0){
+		printf("Could not create Process2\n");
+		return;
+	}
+	(void)wait(&pid1);
+	(void)wait(&pid2);
+	_Exit(0);
+}
+
+int main(){
+	return 0;
+}
+
+// This program also do not works as it doesn't know what is Create Process

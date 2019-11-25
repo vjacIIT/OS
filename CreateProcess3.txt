@@ -1,0 +1,32 @@
+#include<cstdio>
+#include<stdlib.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+#include<unistd.h>
+#include<fcntl.h>
+
+void CreateProcess3(void){
+	int pid1, pid2;
+	static char * argv[3] = {"compiler","fileToCompile",0};
+	pid1 = fork();
+	if(pid1==0){		// child process begins here as pid = 0
+		execv("compiler",argv);
+		// execv ends the current running process, hence child is ended here
+		// means never returns here
+	}
+	argv[0]="editor";
+	argv[1]="fileToEdit";
+	argv[2]=0;
+	if((pid2=fork())==0){
+		execv("editor",argv);
+	}
+	int reta, retb;
+	int pida = wait(&reta);
+	int pidb = wait(&retb);
+	return;
+}
+
+int main(){
+		
+	return 0;
+}

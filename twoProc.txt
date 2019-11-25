@@ -1,0 +1,34 @@
+#include<cstdio>
+#include<cstdlib>
+#include<unistd.h>
+#include<sys/wait.h>
+#include<sys/types.h>
+#include<fcntl.h>
+using namespace std;
+
+// This process creates two processes and wait for them to complete
+
+void CreateProcess(){
+	// create two processes
+	int pid1 = SimpleCreateProcess("compiler");
+	if(pid1<0){
+		printf("Could not create process compiler\n");
+		return;
+	}
+	int pid2 = SimpleCreateProcess("editor");
+	if(pid2<0){
+		printf("Could not create process editor\n");
+		return;
+	}
+	// Wait until they are both complete
+	SimpleWait(pid1);
+	SimpleWait(pid2);
+	// compiler and editor end by making SimpleExit system calls
+	SimpleExit();
+}
+
+int main(){
+	return 0;
+}
+
+// This do not work as there is nothing like SimpleCreateProcess in c++
